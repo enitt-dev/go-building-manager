@@ -8,6 +8,16 @@ import (
 )
 
 func PostHandler(c echo.Context) error {
-	log.Println(c.FormValue("type"))
-	return c.String(http.StatusOK, "")
+	location := c.Param("location")
+	id := c.Param("id")
+
+	log.Println(location, id)
+
+	params := make(map[string]string)
+	err := c.Bind(&params)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return c.JSON(http.StatusOK, params["type"])
 }
